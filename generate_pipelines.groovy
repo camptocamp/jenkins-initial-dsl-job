@@ -59,11 +59,11 @@ team_repos_with_jenkinsfile.each { repo ->
                 repository(repo.name)
             }
         }
-        orphanedItemStrategy {
-            discardOldItems {
-                numToKeep(20)
-            }
-        }
+        // orphanedItemStrategy {
+        //     discardOldItems {
+        //         numToKeep(20)
+        //     }
+        // }
     }
 }
 """
