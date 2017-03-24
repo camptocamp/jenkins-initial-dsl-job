@@ -46,11 +46,11 @@ def github_org = "${github_org}"
 
 def ga = new githubApi()
 def github_cred_id = "${team_github_group}-token"
-// Create a multibranch pipeline job for the repositories with a Jenkinsfile
-def team_repos = ga.getTeamRepos(team_github_group)
-def team_repos_with_jenkinsfile = ga.reposWithJenkinsfile(team_repos)
 
-team_repos_with_jenkinsfile.each { repo ->
+// Create a multibranch pipeline job for the repositories accessible to the github team
+def team_repos = ga.getOrgTeamRepos(team_github_group)
+
+team_repos.each { repo ->
     multibranchPipelineJob(team_name + "/" + repo.name) {
         branchSources {
             github {
@@ -59,11 +59,11 @@ team_repos_with_jenkinsfile.each { repo ->
                 repository(repo.name)
             }
         }
-        // orphanedItemStrategy {
-        //     discardOldItems {
-        //         numToKeep(20)
-        //     }
-        // }
+        orphanedItemStrategy {
+            discardOldItems {
+                numToKeep(20)
+            }
+        }
     }
 }
 """

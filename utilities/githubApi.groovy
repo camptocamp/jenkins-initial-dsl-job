@@ -18,6 +18,7 @@ class githubApi {
         )
     }
 
+    // As there is no pagination, there is a returned items limit of 100 teams, and 100 repos per teams.
     def getTeamRepos(team_github_group){
         // TODO add pagination as this is limited to the first 100 entries
         def all_teams = fetch("${this.api_url}/orgs/${org}/teams?per_page=100", infra_token)
@@ -30,15 +31,19 @@ class githubApi {
         return team_repos
     }
 
-    def reposWithJenkinsfile(repos) {
-        def repos_with_jenkinsfile = []
+    def getOrgTeamRepos(team_github_group){
+        def team_repos = getTeamRepos(team_github_group)
+        return team_repos.findAll { it.owner.login == org}
+    }
 
-        // Get repos with a jenkinsfile
-        repos.each { repo ->
-            def content = fetch("${api_url}/repos/${org}/${repo.name}/contents", infra_token)
-            if (content.any { it.path == "Jenkinsfile"}) {
-                repos_with_jenkinsfile.add(repo)
-            }
+    // This fonction is not used, as it makes issues with rate_limit on github api
+    def reposWithJenkinsfile() {
+        def query = "q=org:${this.org}+filename:Jenkinsfile"
+        files = this.fetch("${this.api_url}/search/code?${query}", this.infra_token)
+
+        def repos_with_jenkinsfile = []
+        files.items.each { file ->
+            repos_with_jenkinsfile.add(file.repository['name'])
         }
         return repos_with_jenkinsfile
     }
