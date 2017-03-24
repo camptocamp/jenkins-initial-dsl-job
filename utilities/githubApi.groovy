@@ -36,15 +36,25 @@ class githubApi {
         return team_repos.findAll { it.owner.login == org}
     }
 
-    // This fonction is not used, as it makes issues with rate_limit on github api
-    def reposWithJenkinsfile() {
+    def filesWithJenkinsfile() {
         def query = "q=org:${this.org}+filename:Jenkinsfile"
-        files = this.fetch("${this.api_url}/search/code?${query}", this.infra_token)
-
-        def repos_with_jenkinsfile = []
-        files.items.each { file ->
-            repos_with_jenkinsfile.add(file.repository['name'])
-        }
-        return repos_with_jenkinsfile
+        def result = this.fetch("${this.api_url}/search/code?${query}", this.infra_token)
+        return result.items.findAll { it.name == 'Jenkinsfile' }
     }
+
+    def getOrgTeamReposWithJenkinsfile(team_github_group) {
+        def team_repos = getOrgTeamRepos(team_github_group)
+        def files = filesWithJenkinsfile()
+        def file_repos = files.collect { it.repository }
+        def common_repos = []
+        team_repos.each { team_repo ->
+            file_repos.each { file_repo ->
+                if (team_repo.id == file_repo.id) {
+                    common_repos.add(team_repo)
+                }
+            }
+        }
+        return common_repos
+    }
+
 }
