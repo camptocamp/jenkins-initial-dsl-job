@@ -77,6 +77,7 @@ team_repos.each { repo ->
                 dsl {
                     text(dsl_full_script)
                     removeAction('DELETE')
+                    removeViewAction('DELETE')
                 }
             }
         }
