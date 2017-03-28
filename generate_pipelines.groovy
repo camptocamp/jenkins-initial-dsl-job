@@ -61,7 +61,8 @@ team_repos.each { repo ->
         }
         orphanedItemStrategy {
             discardOldItems {
-                numToKeep(20)
+                daysToKeep(0)
+                numToKeep(0)
             }
         }
     }
