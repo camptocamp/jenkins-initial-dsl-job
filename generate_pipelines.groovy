@@ -76,6 +76,7 @@ team_repos.each { repo ->
             steps {
                 dsl {
                     text(dsl_full_script)
+                    ignoreExisting()
                     removeAction('DELETE')
                     removeViewAction('DELETE')
                 }
