@@ -59,22 +59,22 @@ team_repos.each { repo ->
                 repository(repo.name)
 
                 // Build origin branches.
-                buildOriginBranch(boolean buildOriginBranch = true)
+                buildOriginBranch(true)
 
                 // Build origin branches also filed as PRs.
-                buildOriginBranchWithPR(boolean buildOriginBranchWithPR = true)
+                buildOriginBranchWithPR(true)
 
                 // Build origin PRs (merged with base branch).
-                buildOriginPRMerge(boolean buildOriginPRMerge = true)
+                buildOriginPRMerge(true)
 
                 // Build origin PRs (unmerged head).
-                buildOriginPRHead(boolean buildOriginPRHead = false)
+                buildOriginPRHead(false)
 
                 // Build fork PRs (merged with base branch).
-                buildForkPRMerge(boolean buildForkPRMerge = true)
+                buildForkPRMerge(true)
 
                 // Build fork PRs (unmerged head).
-                buildForkPRHead(boolean buildForkPRHead = false)
+                buildForkPRHead(false)
             }
         }
 
