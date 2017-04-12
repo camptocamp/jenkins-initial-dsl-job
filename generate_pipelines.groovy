@@ -57,8 +57,27 @@ team_repos.each { repo ->
                 scanCredentialsId(github_cred_id)
                 repoOwner(github_org)
                 repository(repo.name)
+
+                // Build origin branches.
+                buildOriginBranch(boolean buildOriginBranch = true)
+
+                // Build origin branches also filed as PRs.
+                buildOriginBranchWithPR(boolean buildOriginBranchWithPR = true)
+
+                // Build origin PRs (merged with base branch).
+                buildOriginPRMerge(boolean buildOriginPRMerge = true)
+
+                // Build origin PRs (unmerged head).
+                buildOriginPRHead(boolean buildOriginPRHead = false)
+
+                // Build fork PRs (merged with base branch).
+                buildForkPRMerge(boolean buildForkPRMerge = true)
+
+                // Build fork PRs (unmerged head).
+                buildForkPRHead(boolean buildForkPRHead = false)
             }
         }
+
         orphanedItemStrategy {
             discardOldItems {
                 daysToKeep(0)
