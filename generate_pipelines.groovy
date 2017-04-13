@@ -58,23 +58,23 @@ team_repos.each { repo ->
                 repoOwner(github_org)
                 repository(repo.name)
 
-                // Build origin branches.
-                buildOriginBranch(true)
+                // // Build origin branches.
+                // buildOriginBranch(true)
 
-                // Build origin branches also filed as PRs.
-                buildOriginBranchWithPR(true)
+                // // Build origin branches also filed as PRs.
+                // buildOriginBranchWithPR(true)
 
-                // Build origin PRs (merged with base branch).
-                buildOriginPRMerge(true)
+                // // Build origin PRs (merged with base branch).
+                // buildOriginPRMerge(true)
 
-                // Build origin PRs (unmerged head).
-                buildOriginPRHead(false)
+                // // Build origin PRs (unmerged head).
+                // buildOriginPRHead(false)
 
-                // Build fork PRs (merged with base branch).
-                buildForkPRMerge(true)
+                // // Build fork PRs (merged with base branch).
+                // buildForkPRMerge(true)
 
-                // Build fork PRs (unmerged head).
-                buildForkPRHead(false)
+                // // Build fork PRs (unmerged head).
+                // buildForkPRHead(false)
             }
         }
 
