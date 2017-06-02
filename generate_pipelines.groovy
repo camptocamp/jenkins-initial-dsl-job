@@ -92,13 +92,17 @@ team_repos.each { repo ->
 
         // create the dsl job
         job("${team_name}/Auto-Generate Pipelines") {
+            definition {
+                cps {
+                   sandbox()
+                }
+            }
             steps {
                 dsl {
                     text(dsl_full_script)
                     ignoreExisting()
                     removeAction('DELETE')
                     removeViewAction('DELETE')
-                    sandbox()
                 }
             }
         }
