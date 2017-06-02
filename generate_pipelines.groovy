@@ -98,6 +98,7 @@ team_repos.each { repo ->
                     ignoreExisting()
                     removeAction('DELETE')
                     removeViewAction('DELETE')
+                    sandbox()
                 }
             }
         }
