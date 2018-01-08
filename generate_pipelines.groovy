@@ -54,6 +54,9 @@ team_repos.each { repo ->
     multibranchPipelineJob(team_name + "/" + repo.name) {
         branchSources {
             github {
+                // Set a unique ID as workaround of issue https://issues.jenkins-ci.org/browse/JENKINS-43693
+                id(team_name + "_" + repo.name)
+
                 scanCredentialsId(github_cred_id)
                 repoOwner(github_org)
                 repository(repo.name)
