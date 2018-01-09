@@ -117,3 +117,14 @@ job("admin/01_team_credentials_and_allocated_slaves") {
         systemGroovyCommand(readFileFromWorkspace('system/config_teams.groovy')) {}
     }
 }
+
+job("admin/02_cleanup_workspaces") {
+    description("Cleanup workspaces to avoid disk full issues")
+    // set the same node to retrieve class & config files
+    wrappers {
+        runOnSameNodeAs('admin/00_initial_dsl_job', true)
+    }
+    steps {
+        systemGroovyCommand(readFileFromWorkspace('system/cleanup_workspaces.groovy')) {}
+    }
+}
