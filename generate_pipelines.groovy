@@ -120,10 +120,16 @@ job("admin/01_team_credentials_and_allocated_slaves") {
 
 job("admin/02_cleanup_workspaces") {
     description("Cleanup workspaces to avoid disk full issues")
+
+    parameters {
+        stringParam('CLEAN_THRESHOLD', '200', 'threeshold in GB')
+    }
+
     // set the same node to retrieve class & config files
     wrappers {
         runOnSameNodeAs('admin/00_initial_dsl_job', true)
     }
+
     steps {
         systemGroovyCommand(readFileFromWorkspace('system/cleanup_workspaces.groovy')) {}
     }
