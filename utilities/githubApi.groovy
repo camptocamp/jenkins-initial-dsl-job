@@ -37,7 +37,7 @@ class githubApi {
     }
 
     def filesWithJenkinsfile() {
-        def query = "q=org:${this.org}+filename:Jenkinsfile+path:/"
+        def query = "q=org:${this.org}+filename:Jenkinsfile"
         def result = this.fetch("${this.api_url}/search/code?${query}", this.infra_token)
         return result.items.findAll { it.path == 'Jenkinsfile' }
     }
