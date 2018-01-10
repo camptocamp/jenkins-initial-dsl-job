@@ -118,19 +118,30 @@ job("admin/01_team_credentials_and_allocated_slaves") {
     }
 }
 
-job("admin/02_cleanup_workspaces") {
+job("admin/cleanup_workspaces") {
     description("Cleanup workspaces to avoid disk full issues")
 
     parameters {
         stringParam('CLEAN_THRESHOLD', '200', 'threeshold in GB')
     }
 
-    // set the same node to retrieve class & config files
-    wrappers {
-        runOnSameNodeAs('admin/00_initial_dsl_job', true)
-    }
-
     steps {
         systemGroovyCommand(readFileFromWorkspace('system/cleanup_workspaces.groovy')) {}
+    }
+}
+
+job("admin/list_plugins") {
+    description("List plugins in the plugins.txt format")
+
+    steps {
+        systemGroovyCommand(readFileFromWorkspace('system/list_plugins.groovy')) {}
+    }
+}
+
+job("admin/clear_queue") {
+    description("Clear jobs queue")
+
+    steps {
+        systemGroovyCommand(readFileFromWorkspace('system/clear_build_queue.groovy')) {}
     }
 }
