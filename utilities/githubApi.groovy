@@ -48,13 +48,8 @@ class githubApi {
         def file_repos = files.collect { it.repository }
         def common_repos = []
         team_repos.each { team_repo ->
-            file_repos.each { file_repo ->
-                if (team_repo.id == file_repo.id) {
-                    common_repos.add(team_repo)
-                }
-            }
+            common_repos.add(team_repo)
         }
         return common_repos
     }
-
 }
